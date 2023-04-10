@@ -47,35 +47,37 @@ class Assets {
 	 */
 	public function admin_enqueue_scripts( $hook_suffix ) {
 
-		if ( 'taxonomies-validation.php' === $hook_suffix ) {
-			/*$file_path = TAXONOMIES_VALIDATION_PATH . '/assets/build/css/admin.css';
+		if ( isset( $_GET['page'] ) && $_GET['page'] == 'taxonomies-validation' ) {
+
+			$file_path = TX_VALID_PATH . '/assets/js/admin.js';
 			$time      = time();
 			if ( file_exists( $file_path ) ) {
 				$time = filemtime( $file_path );
 			}
 
-			wp_enqueue_style( 'wp-menu-custom-fields-admin-style', TAXONOMIES_VALIDATION_URL . '/assets/build/css/admin.css', array(), $time );
+			wp_enqueue_script('jquery-ui-tabs',array( 'jquery' ), TX_VALID_VERSION, false);
+			wp_enqueue_script('jquery-ui-accordion',array( 'jquery' ), TX_VALID_VERSION, false);
+			wp_enqueue_script( 'tx-valid-admin', TX_VALID_URL . '/assets/js/admin.js', array('jquery'), $time, true );
+
+			$file_path = TX_VALID_PATH . '/assets/css/admin.css';
+			$time      = time();
+			if ( file_exists( $file_path ) ) {
+				$time = filemtime( $file_path );
+			}
+
+			wp_enqueue_style( 'tx-valid-admin-style', TX_VALID_URL . '/assets/css/admin.css', array(), $time );
 			wp_enqueue_style( 'dashicons' );
 
-			wp_enqueue_editor();
-			wp_enqueue_script( 'jquery' );
-			wp_enqueue_script( 'wp-tinymce' );
-			wp_enqueue_media();
-
-			$file_path = TAXONOMIES_VALIDATION_PATH . '/assets/build/js/admin.js';
+			$file_path = TX_VALID_PATH . '/assets/css/jquery-ui.min.css';
 			$time      = time();
 			if ( file_exists( $file_path ) ) {
 				$time = filemtime( $file_path );
 			}
-			wp_enqueue_script( 'wp-menu-custom-fields-admin-script', TAXONOMIES_VALIDATION_URL . '/assets/build/js/admin.js', array( 'jquery', 'wp-tinymce', 'media-editor', 'media-views' ), $time, true );
+			wp_enqueue_style( 'jquery-ui-tx-valid', TX_VALID_URL . '/assets/css/jquery-ui.min.css', array(), $time );
 
-			wp_localize_script(
-				'wp-menu-custom-fields-admin-script',
-				'wpMenuCustomFields',
-				array(
-					'selectMediaText' => esc_html__( 'Select Image', 'wp-menu-custom-fields' ),
-				)
-			);*/
+			//wp_register_style( 'jquery-ui-tx-valid', 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css' );
+			//wp_enqueue_style( 'jquery-ui-tx-valid' );
+
 		}
 	}
 

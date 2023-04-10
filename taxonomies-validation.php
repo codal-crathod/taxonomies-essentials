@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: Taxonomies validation used for, Required / By default selected, any taxonomies terms
- * Description: Before saving any post you can set any categories/taxonomies as required, so you can't save the post without selecting the required taxonomy. And also you can set by default any taxonomy selected whenever creating a new post.
+ * Plugin Name: Taxonomies validation used for, Required and By default selected, any taxonomies terms
+ * Description: Before saving any post you can set any categories/taxonomies as required, so you can't save the post without selecting the required taxonomy. And also you can set by default any taxonomy selected whenever creating a new post and updating post.
  * Plugin URI:  https://wordpress.org/plugins/taxonomies-validation/
  * Author:      chiragrathod103
  * Author URI:  https://www.linkedin.com/in/chirag-r-6a8b77121
@@ -13,11 +13,12 @@
  * @package wp-menu-custom-fields
  */
 
-define( 'TAXONOMIES_VALIDATION_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
-define( 'TAXONOMIES_VALIDATION_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
+define( 'TX_VALID_VERSION', '1.0' );
+define( 'TX_VALID_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
+define( 'TX_VALID_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
 
 // phpcs:disable WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant
-require_once TAXONOMIES_VALIDATION_PATH . '/inc/helpers/autoloader.php';
+require_once TX_VALID_PATH . '/inc/helpers/autoloader.php';
 // phpcs:enable WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant
 
 /**
@@ -29,3 +30,11 @@ function taxonomies_validation_plugin_loader() {
 	\Taxonomies_Validation\Inc\Plugin::get_instance();
 }
 taxonomies_validation_plugin_loader();
+
+/**
+ * Display the Print_r data
+  * @return void
+ */
+function pre( $args ) {
+    echo '<pre>'; print_r($args); echo '</pre>';
+}

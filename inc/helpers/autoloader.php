@@ -58,7 +58,7 @@ function autoloader( $resource = '' ) {
 				break;
 		}
 
-		$resource_path = sprintf( '%s/inc/%s/%s.php', untrailingslashit( TAXONOMIES_VALIDATION_PATH ), $directory, $file_name );
+		$resource_path = sprintf( '%s/inc/%s/%s.php', untrailingslashit( TX_VALID_PATH ), $directory, $file_name );
 
 	}
 
