@@ -149,9 +149,9 @@ class Taxonomies_Essentials {
 		<br>
 		<div id="tabs">
 			<ul>
-				<li><a href="#default-required-options"><span class="dashicons dashicons-admin-generic"></span>&nbsp;<?php _e("Required Terms"); ?></a></li>
-				<li><a href="#default-selected-options"><span class="dashicons dashicons-admin-generic"></span>&nbsp;<?php _e("Default Selected Terms"); ?></a></li>
-				<li><a href="#general-options"><span class="dashicons dashicons-admin-tools"></span>&nbsp;<?php _e("General Settings"); ?></a></li>
+				<li><a href="#default-required-options"><span class="dashicons dashicons-warning"></span>&nbsp;<?php _e("Required Terms"); ?></a></li>
+				<li><a href="#default-selected-options"><span class="dashicons dashicons-yes-alt"></span>&nbsp;<?php _e("Default Selected Terms"); ?></a></li>
+				<li><a href="#general-options"><span class="dashicons dashicons-admin-settings"></span>&nbsp;<?php _e("General Settings"); ?></a></li>
 			</ul>
 			<div class="tx_tab-wrapper">
 				<div id="default-required-options">
@@ -172,7 +172,9 @@ class Taxonomies_Essentials {
 												strpos($taxonomy,'pa_') === 0 )
 											continue;
 											?>
-											<h3><?php _e($taxonomy); ?></h3>
+											<?php $tax_label = get_taxonomy($taxonomy);
+											$tax_label = $tax_label ? $tax_label->label : '' ?>
+											<h3 class="inner_title"><?php _e($tax_label); ?></h3>
 											<div>
 												<label class="selectit any">
 													<input type="checkbox" name="txv_options[required][<?php echo esc_attr($post_type) ?>][<?php echo esc_attr($taxonomy) ?>][]" value="any"
@@ -200,7 +202,7 @@ class Taxonomies_Essentials {
 
 													<?php 
 													$list = str_replace( 'post_category[]', 'txv_options[required]['.$post_type.']['.$taxonomy.'][]', $list );
-													echo $setting['required'][$post_type][$taxonomy][0] == 'any' ? '<ul class="disabled">' : '<ul>';
+													echo $setting['required'][$post_type][$taxonomy][0] == 'any' ? '<ul class="disabled">' : '<ul class="taxonomy_list">';
 													echo str_replace( 'tax_input['.$taxonomy.']', 'txv_options[required]['.$post_type.']['.$taxonomy.']', $list );
 													echo '</ul>';
 													?>
@@ -236,8 +238,10 @@ class Taxonomies_Essentials {
 												strpos($taxonomy,'pa_') === 0 )
 											continue;
 											?>
-											<h3><?php _e($taxonomy); ?></h3>
-											<div>
+											<?php $tax_label = get_taxonomy($taxonomy);
+											$tax_label = $tax_label ? $tax_label->label : '' ?>
+											<h3 class="inner_title"><?php _e($tax_label); ?></h3>
+											<ul class="taxonomy_list">
 												<?php
 												$args = array("hide_empty" => 0, "taxonomy" => $taxonomy);
 												$categories = get_categories($args); 
@@ -265,7 +269,7 @@ class Taxonomies_Essentials {
 													<ul><li><?php _e('No item found.','taxonomies-essentials'); ?></li></ul>
 
 												<?php endif; ?>
-											</div>
+												</ul>
 										<?php endforeach; ?>
 									<?php else: ?>
 										<ul><li><?php _e('No item found.','taxonomies-essentials'); ?></li></ul>
