@@ -59,15 +59,18 @@ class Assets {
 
 			wp_enqueue_script('jquery-ui-tabs',array( 'jquery' ), TX_VALID_VERSION, false);
 			wp_enqueue_script('jquery-ui-accordion',array( 'jquery' ), TX_VALID_VERSION, false);
-			wp_enqueue_script( 'tx-essentials-admin', TX_VALID_URL . '/assets/js/admin.js', array('jquery'), $$time, true );
+			wp_enqueue_script( 'tx-essentials-admin', TX_VALID_URL . '/assets/js/admin.js', array('jquery'), $time, true );
 			$txv_options = get_option( 'txv_options' );
 
 			// taxonomy name in options array we will add if rest_base slug is different.
-			foreach ($txv_options as $key => $obj) {
-				foreach ($obj as $ptype => $taxonomies) {
+			foreach ($txv_options as $key => $data) {
+				if( !is_array($data) )
+					continue;
+				foreach ($data as $ptype => $taxonomies) {
 					foreach ($taxonomies as $taxonomy => $terms) { 
 						foreach ($terms as $k => $id) {
 							$term = get_term( $id , $taxonomy );
+							if( isset($term->name) )
 							$txv_options[$id] = $term->name;
 						}
 					}
