@@ -149,9 +149,9 @@ class Taxonomies_Essentials {
 		<br>
 		<div id="tabs">
 			<ul>
-				<li><a href="#default-required-options"><span class="dashicons dashicons-warning"></span>&nbsp;<?php _e("Required Terms"); ?></a></li>
-				<li><a href="#default-selected-options"><span class="dashicons dashicons-yes-alt"></span>&nbsp;<?php _e("Default Selected Terms"); ?></a></li>
-				<li><a href="#general-options"><span class="dashicons dashicons-admin-settings"></span>&nbsp;<?php _e("General Settings"); ?></a></li>
+				<li><a href="#default-required-options"><span class="dashicons dashicons-warning"></span><label><?php _e("Required Terms"); ?></label></a></li>
+				<li><a href="#default-selected-options"><span class="dashicons dashicons-yes-alt"></span><label><?php _e("Default Selected Terms"); ?></label></a></li>
+				<li><a href="#general-options"><span class="dashicons dashicons-admin-settings"></span><label><?php _e("General Settings"); ?></label></a></li>
 			</ul>
 			<div class="tx_tab-wrapper">
 				<div id="default-required-options">
