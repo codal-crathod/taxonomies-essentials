@@ -5,7 +5,7 @@
  * @package project-name-featuers
  */
 
-namespace Taxonomies_Validation\Inc\Helpers;
+namespace Taxonomies_Essentials\Inc\Helpers;
 
 /**
  * Auto loader function.
@@ -17,7 +17,7 @@ namespace Taxonomies_Validation\Inc\Helpers;
 function autoloader( $resource = '' ) {
 
 	$resource_path  = false;
-	$namespace_root = 'Taxonomies_Validation\\';
+	$namespace_root = 'Taxonomies_Essentials\\';
 	$resource       = trim( $resource, '\\' );
 
 	if ( empty( $resource ) || strpos( $resource, '\\' ) === false || strpos( $resource, $namespace_root ) !== 0 ) {
@@ -69,4 +69,4 @@ function autoloader( $resource = '' ) {
 
 }
 
-spl_autoload_register( '\Taxonomies_Validation\Inc\Helpers\autoloader' );
+spl_autoload_register( '\Taxonomies_Essentials\Inc\Helpers\autoloader' );

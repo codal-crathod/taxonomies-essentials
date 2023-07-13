@@ -5,9 +5,9 @@
  * @package wp-menu-custom-fields
  */
 
-namespace Taxonomies_Validation\Inc;
+namespace Taxonomies_Essentials\Inc;
 
-use \Taxonomies_Validation\Inc\Traits\Singleton;
+use \Taxonomies_Essentials\Inc\Traits\Singleton;
 
 /**
  * Class Plugin
@@ -23,7 +23,7 @@ class Plugin {
 
 		// Load plugin classes.
 		Assets::get_instance();
-		Taxonomies_Validation::get_instance();
+		Taxonomies_Essentials::get_instance();
 
 	}
 

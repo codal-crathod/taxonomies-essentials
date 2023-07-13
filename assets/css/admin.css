@@ -1,4 +1,25 @@
-.tx-valid-accordian ul.children {
+/**
+ * Admin CSS
+ */
+.tx-essentials-accordian ul.children {
     padding-left: 16px;
     margin: 6px;
+}
+.tx_main table.form-table th {
+    display: none;
+}
+.tx_main table.form-table td {
+    padding: 0;
+}
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+.tx_main ul.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+.tx_main .ui-accordion .ui-accordion-content {
+    max-height: 400px;
 }

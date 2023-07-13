@@ -25,7 +25,7 @@
  * @package wp-menu-custom-fields
  */
 
-namespace Taxonomies_Validation\Inc\Traits;
+namespace Taxonomies_Essentials\Inc\Traits;
 
 trait Singleton {
 
@@ -76,9 +76,9 @@ trait Singleton {
 			$instance[ $called_class ] = new $called_class();
 
 			/**
-			 * Dependent items can use the taxonomies_validation_singleton_init_{$called_class} hook to execute code
+			 * Dependent items can use the taxonomies_essentials_singleton_init_{$called_class} hook to execute code
 			 */
-			do_action( sprintf( 'taxonomies_validation_singleton_init_%s', $called_class ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+			do_action( sprintf( 'taxonomies_essentials_singleton_init_%s', $called_class ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 		}
 
