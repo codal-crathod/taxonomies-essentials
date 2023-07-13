@@ -286,7 +286,7 @@ class Taxonomies_Essentials {
 							<li>
 								<label><?php _e('Error message for a required Terms.','taxonomies-essentials') ?><br>
 								<small><?php _e('Use {term-list} for the Term name or list.','taxonomies-essentials') ?></small> <br>
-								<input type="text" name="txv_options[err_msg_term]" value="<?php echo isset( $setting['err_msg_term'] ) ? esc_attr($setting['err_msg_term']) : esc_attr('{term-list} is a required for a {taxonomy-name}'); ?>" style="width: 100%; display: block;"></label>
+								<input type="text" name="txv_options[err_msg_term]" value="<?php echo isset( $setting['err_msg_term'] ) ? esc_attr($setting['err_msg_term']) : esc_attr('{term-list} required {taxonomy-name}'); ?>" style="width: 100%; display: block;"></label>
 							</li>
 						</ol>
 					</div>

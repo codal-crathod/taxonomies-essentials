@@ -65,7 +65,7 @@ jQuery(window).on('load', function () {
 						console.log(missing);
 						if (missing.length > 0) {
 							valid = false;
-							msg = txv_options.err_msg_taxonomy.replace('{term-list}', missing.join(', '));
+							msg = txv_options.err_msg_term.replace('{term-list}', missing.join(', '));
 							errmessage += msg.replace('{taxonomy-name}', label)+'\n';
 						}
 					}
@@ -127,7 +127,7 @@ jQuery(window).on('load', function () {
 					if (missing.length > 0) {
 
 						valid = false;
-						msg = txv_options.err_msg_taxonomy.replace('{term-list}', missing.join(', '));
+						msg = txv_options.err_msg_term.replace('{term-list}', missing.join(', '));
 						errmessage += msg.replace('{taxonomy-name}', label)+'\n';
 					}
 
