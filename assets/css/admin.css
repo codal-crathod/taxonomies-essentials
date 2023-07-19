@@ -107,16 +107,6 @@
 }
 .tx_main .taxonomy_list li{
     flex: 100%;
-}    
-@media screen and (min-width: 767px) {
-    .tx_main .taxonomy_list li{
-        flex: 50%;
-    }    
-}
-@media screen and (min-width: 1200px) {
-    .tx_main .taxonomy_list li{
-        flex: 33%;
-    }    
 }
 .tx_main .ui-accordion-header.ui-state-default,
 .tx_main .ui-widget-content .ui-accordion-header.ui-state-default{
@@ -185,4 +175,19 @@
 }
 .tx_main ol li{
     margin-bottom: 14px;
+}
+@media screen and (min-width: 767px) {
+    .tx_main .taxonomy_list li{
+        flex: 50%;
+    }    
+}
+@media screen and (min-width: 782px) {
+    .tx_main{
+        margin: 15px;
+    }
+}
+@media screen and (min-width: 1200px) {
+    .tx_main .taxonomy_list li{
+        flex: 33%;
+    }
 }
