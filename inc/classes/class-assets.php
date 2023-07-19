@@ -102,9 +102,6 @@ class Assets {
 			}
 			wp_enqueue_style( 'jquery-ui-tx-essentials', TX_VALID_URL . '/assets/css/jquery-ui.min.css', array(), $time );
 
-			//wp_register_style( 'jquery-ui-tx-essentials', 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css' );
-			//wp_enqueue_style( 'jquery-ui-tx-essentials' );
-
 		}
 	}
 

@@ -205,3 +205,18 @@
     padding: 8px 15px;
     margin-top: 12px;
 }
+@media screen and (min-width: 767px) {
+    .tx_main .taxonomy_list li{
+        flex: 50%;
+    }    
+}
+@media screen and (min-width: 782px) {
+    .tx_main{
+        margin: 15px;
+    }
+}
+@media screen and (min-width: 1200px) {
+    .tx_main .taxonomy_list li{
+        flex: 33%;
+    }
+}

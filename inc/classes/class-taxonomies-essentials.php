@@ -76,7 +76,7 @@ class Taxonomies_Essentials {
 	 * @return void
 	 */
 	public function register_menu_page_tx_valid() {
-		//echo $_SERVER["REQUEST_URI"] exit;
+
 		add_submenu_page(
 			'options-general.php', 'Taxonomies Essentials', 'Taxonomies Essentials', 'manage_options', 'taxonomies-essentials', array($this, 'submenu_page_tx_valid')
 		);
@@ -106,7 +106,7 @@ class Taxonomies_Essentials {
 	 */
 	public function submenu_page_tx_valid() {
 		if( !current_user_can('manage_options') ) {
-			wp_die(__('You dont have enough permissions to view this page.'));
+			wp_die(esc_html('You dont have enough permissions to view this page.'));
 		}
 
 		if( file_exists( TX_VALID_PATH . '/inc/page-content.php' ) ) {
@@ -131,16 +131,15 @@ class Taxonomies_Essentials {
 	 */
 	public function tx_fields_for_taxonomies_callback() {
 
-		$setting = get_option( 'txv_options' ); 
-		if( isset($_GET['dev']) ) pre($setting);
+		$setting = get_option( 'txv_options' );
 
 		$args = array(
 			'public'   => true,
 			'_builtin' => false
 		);
  
-		$output = 'names'; // 'names' or 'objects' (default: 'names')
-		$operator = 'and'; // 'and' or 'or' (default: 'and')
+		$output = 'names';
+		$operator = 'and';
  
 		$post_types = get_post_types( $args, $output, $operator );
 		array_unshift($post_types,'post');
@@ -149,9 +148,11 @@ class Taxonomies_Essentials {
 		<br>
 		<div id="tabs">
 			<ul>
-				<li><a href="#default-required-options"><span class="dashicons dashicons-warning"></span><label><?php _e("Required Terms"); ?></label></a></li>
-				<li><a href="#default-selected-options"><span class="dashicons dashicons-yes-alt"></span><label><?php _e("Default Selected Terms"); ?></label></a></li>
-				<li><a href="#general-options"><span class="dashicons dashicons-admin-settings"></span><label><?php _e("General Settings"); ?></label></a></li>
+
+				<li><a href="#default-required-options"><span class="dashicons dashicons-warning"></span><?php _e('Required Terms','taxonomies-essentials'); ?></a></li>
+				<li><a href="#default-selected-options"><span class="dashicons dashicons-yes-alt"></span><?php _e('Default Selected Terms','taxonomies-essentials'); ?></a></li>
+				<li><a href="#general-options"><span class="dashicons dashicons-admin-settings"></span><?php _e('General Settings','taxonomies-essentials'); ?></a></li>
+
 			</ul>
 			<div class="tx_tab-wrapper">
 				<div id="default-required-options">
@@ -174,11 +175,11 @@ class Taxonomies_Essentials {
 											?>
 											<?php $tax_label = get_taxonomy($taxonomy);
 											$tax_label = $tax_label ? $tax_label->label : '' ?>
-											<h3 class="inner_title"><?php _e($tax_label); ?></h3>
+											<h3 class="inner_title"><?php echo esc_html($tax_label); ?></h3>
 											<div>
 												<label class="selectit any">
 													<input type="checkbox" name="txv_options[required][<?php echo esc_attr($post_type) ?>][<?php echo esc_attr($taxonomy) ?>][]" value="any"
-														<?php echo $setting['required'][$post_type][$taxonomy][0] == 'any' ? 'checked' : '' ?> 
+														<?php echo ( isset($setting['required'][$post_type][$taxonomy]) && $setting['required'][$post_type][$taxonomy][0] == 'any' ) ? 'checked' : '' ?> 
 													>
 													<?php echo esc_html('Any one term is required.') ?>
 												</label>
@@ -186,9 +187,7 @@ class Taxonomies_Essentials {
 												<?php
 												$args = array("hide_empty" => 0, "taxonomy" => $taxonomy);
 												$categories = get_categories($args); 
-
-
-												$selected_cats = @$setting['required'][$post_type][$taxonomy]; //array( 45, 33, 118 );
+												$selected_cats = @$setting['required'][$post_type][$taxonomy];
 												$list = wp_terms_checklist( 0, 
 															array( 'taxonomy'=> $taxonomy,
 																'selected_cats' => $selected_cats,
@@ -201,19 +200,41 @@ class Taxonomies_Essentials {
 												<?php if( $list ) : ?>
 
 													<?php 
+													$elm = array( 
+														'label' => array(
+															'class' => array(),
+														),
+														'ul' => array(
+															'class' => array(),
+														), 
+														'input' => array(
+															'type' => array(),
+															'class' => array(),
+															'value' => array(),
+															'name' => array(),
+															'id' => array(),
+															'checked' => array(),
+														), 
+														'li' => array(
+															'id' => array(),
+															'class' => array(),
+														),
+														'<br>' => array(),
+														
+													);
 													$list = str_replace( 'post_category[]', 'txv_options[required]['.$post_type.']['.$taxonomy.'][]', $list );
-													echo $setting['required'][$post_type][$taxonomy][0] == 'any' ? '<ul class="disabled">' : '<ul class="taxonomy_list">';
-													echo str_replace( 'tax_input['.$taxonomy.']', 'txv_options[required]['.$post_type.']['.$taxonomy.']', $list );
+													echo ( isset($setting['required'][$post_type][$taxonomy]) && $setting['required'][$post_type][$taxonomy][0] == 'any' ) ? '<ul class="disabled">' : '<ul class="taxonomy_list">';
+													echo wp_kses( str_replace( 'tax_input['.$taxonomy.']', 'txv_options[required]['.$post_type.']['.$taxonomy.']', $list ), $elm );
 													echo '</ul>';
 													?>
 
 												<?php else: ?>
-													<ul><li><?php _e('No item found.','taxonomies-essentials'); ?></li></ul>
+													<ul><li><?php _e('No term found.','taxonomies-essentials'); ?></li></ul>
 												<?php endif; ?>
 											</div>
 										<?php endforeach; ?>
 									<?php else: ?>
-										<ul><li><?php _e('No item found.','taxonomies-essentials'); ?></li></ul>
+										<ul><li><?php _e('No term found.','taxonomies-essentials'); ?></li></ul>
 									<?php endif; ?>
 								</div>
 							<?php endforeach; ?>
@@ -240,14 +261,12 @@ class Taxonomies_Essentials {
 											?>
 											<?php $tax_label = get_taxonomy($taxonomy);
 											$tax_label = $tax_label ? $tax_label->label : '' ?>
-											<h3 class="inner_title"><?php _e($tax_label); ?></h3>
+											<h3 class="inner_title"><?php echo esc_html($tax_label); ?></h3>
 											<ul class="taxonomy_list">
 												<?php
 												$args = array("hide_empty" => 0, "taxonomy" => $taxonomy);
 												$categories = get_categories($args); 
-
-
-												$selected_cats = @$setting['selected'][$post_type][$taxonomy]; //array( 45, 33, 118 );
+												$selected_cats = @$setting['selected'][$post_type][$taxonomy];
 												$list = wp_terms_checklist( 0, 
 															array( 'taxonomy'=> $taxonomy,
 																'selected_cats' => $selected_cats,
@@ -256,23 +275,40 @@ class Taxonomies_Essentials {
 															) 
 														);
 												?>
-
 												<?php if( $list ) : ?>
-
-													<?php 
+													<?php
+													$elm = array( 
+														'label' => array(
+															'class' => array(),
+														),
+														'ul' => array(
+															'class' => array(),
+														), 
+														'input' => array(
+															'type' => array(),
+															'class' => array(),
+															'value' => array(),
+															'name' => array(),
+															'id' => array(),
+															'checked' => array(),
+														), 
+														'li' => array(
+															'id' => array(),
+															'class' => array(),
+														),
+														'<br>' => array(),
+														
+													);
 													$list = str_replace( 'post_category[]', 'txv_options[selected]['.$post_type.']['.$taxonomy.'][]', $list );
-													echo str_replace( 'tax_input['.$taxonomy.']', 'txv_options[selected]['.$post_type.']['.$taxonomy.']', $list );
+													echo wp_kses( str_replace( 'tax_input['.$taxonomy.']', 'txv_options[selected]['.$post_type.']['.$taxonomy.']', $list ), $elm );
 													?>
-
 												<?php else: ?>
-
-													<ul><li><?php _e('No item found.','taxonomies-essentials'); ?></li></ul>
-
+													<ul><li><?php _e('No term found.','taxonomies-essentials'); ?></li></ul>
 												<?php endif; ?>
 												</ul>
 										<?php endforeach; ?>
 									<?php else: ?>
-										<ul><li><?php _e('No item found.','taxonomies-essentials'); ?></li></ul>
+										<ul><li><?php _e('No term found.','taxonomies-essentials'); ?></li></ul>
 									<?php endif; ?>
 								</div>
 							<?php endforeach; ?>
@@ -306,20 +342,17 @@ class Taxonomies_Essentials {
 	 * @param Boole $use_block_editor is block editor or not
 	 * @param Object $post object of post.
 	 *
-	 * @return void
+	 * @return boolean
 	 */
 	public function validate_post_before_save( $use_block_editor, $post ) {
 
 		$setting = get_option( 'txv_options' );
-
 		if ( !isset( $setting['selected'] ) )
-			return;
+			return $use_block_editor;
 
 		$post_type = get_post_type( $post->ID );
 		$post_id   = $post->ID;
-
 		$this->validate_set_terms( $setting, $post_type, $post_id );
-		
 		return $use_block_editor;
 	}
 
@@ -332,15 +365,11 @@ class Taxonomies_Essentials {
 
 		$screen = get_current_screen();
 		if ( isset($screen->post_type) && isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['post']) ) {
-
 			$setting = get_option( 'txv_options' );
-
 			if ( !isset( $setting['selected'] ) )
 				return;
-
 			$post_type = $screen->post_type;
 			$post_id = $_GET['post'];
-
 			$this->validate_set_terms( $setting, $post_type, $post_id );
 		}
 	}
@@ -357,7 +386,6 @@ class Taxonomies_Essentials {
 	public function validate_set_terms( $setting, $post_type, $post_id ) {
 
 		if ( isset( $setting['selected'][$post_type] ) ) {
-
 			/**
 			 * @param string   $selected_taxonomy Taxonomy name.
 			 * @return array $selected_terms Term ID's list as array.
@@ -367,8 +395,10 @@ class Taxonomies_Essentials {
 				if (is_taxonomy_hierarchical($selected_taxonomy) ) {
 
 					$existing_term = get_the_terms( $post_id, $selected_taxonomy );
-					foreach ($existing_term as $k => $term) {
-						$selected_terms[] = $term->term_id;
+					if ( $existing_term && ! is_wp_error( $existing_term ) ) {
+						foreach ($existing_term as $k => $term) {
+							$selected_terms[] = $term->term_id;
+						}
 					}
 
 					/**
@@ -383,17 +413,19 @@ class Taxonomies_Essentials {
 					$selected_terms = apply_filters( 'taxonomies_essentials_selected_terms', $selected_terms, true, $post_id );
 
 					// set terms for hierarchidal taxonomy
+					if( !empty($selected_terms) )
 					wp_set_post_terms($post_id, $selected_terms, $selected_taxonomy);
 					
-
 				}else{
 
 					// set terms for non-hierarchidal taxonomy
 					$selected_terms_slug = [];
 
 					$existing_term = get_the_terms( $post_id, $selected_taxonomy );
-					foreach ($existing_term as $k => $term) {
-						$selected_terms_slug[] = htmlentities($term->slug);
+					if ( $existing_term && ! is_wp_error( $existing_term ) ) {
+						foreach ($existing_term as $k => $term) {
+							$selected_terms_slug[] = htmlentities($term->slug);
+						}
 					}
 
 					foreach ($selected_terms as $k => $term_id) {
@@ -412,6 +444,7 @@ class Taxonomies_Essentials {
 					 */
 					$slug_list = apply_filters( 'taxonomies_essentials_selected_terms', $selected_terms_slug, false, $post_id );
 					
+					if( !empty($slug_list) )
 					wp_set_post_terms($post_id, $slug_list, $selected_taxonomy);
 				}
 			}

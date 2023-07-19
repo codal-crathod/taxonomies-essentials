@@ -1,10 +1,10 @@
-/* Script on ready
+/* Plugin Taxonomy Essentials Script
 ---------------------------------------------------*/
 // Tabs for admin page
 jQuery( "#tabs" ).tabs({
 	activate: function( event, ui ) {
-		var scrollTop = $(window).scrollTop();
-		window.location.hash = ui.newPanel.attr('id');
+		var scrollTop = jQuery(window).scrollTop();
+		location.hash = ui.newPanel.attr('id');
 		jQuery(window).scrollTop(scrollTop);
 	}
 });
