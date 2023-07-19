@@ -1,4 +1,5 @@
 === Taxonomies Essentials ===
+
 Contributors: chiragrathod103, dhrumilk, mikinc860, dhruvishah2203
 Tags: required, default selected, taxonomies, Categories, tags
 Requires at least: 5.2
