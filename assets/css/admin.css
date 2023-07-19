@@ -1,9 +1,18 @@
 /**
  * Admin CSS
  */
- .tx_main .form-table td p{
+.tx_main .form-table td p{
     margin-bottom: 12px;
- }
+}
+.tx_main{
+    background: #fff;
+    padding: 20px 20px;
+}
+@media screen and (min-width: 767px) {
+    .tx_main{
+        padding: 20px 50px;
+    }
+}
 .tx-essentials-accordian ul.children {
     padding-left: 16px;
     margin: 6px;
@@ -23,6 +32,8 @@
 .ui-tabs .ui-tabs-nav .ui-tabs-anchor > *{
     flex: 100%;
     text-align: center;
+    word-wrap: break-word;
+    white-space: normal;
 }
 .ui-tabs .ui-tabs-nav .ui-tabs-anchor .dashicons{
     padding-bottom: 10px;
@@ -33,10 +44,6 @@
 }
 .tx_main .ui-accordion .ui-accordion-content {
     max-height: 400px;
-}
-.tx_main{
-    background: #fff;
-    padding: 50px;
 }
 .tx_main .ui-widget-header{
     background: transparent;
@@ -80,6 +87,21 @@
 .tx_main .ui-state-active a:link,
 .tx_main .ui-state-active a:visited{
     color: #2ac186;
+}
+@media screen and (max-width: 550px) {
+    .tx_main .ui-tabs .ui-tabs-nav .ui-tabs-anchor{
+        padding: 10px !important;
+    }
+    .tx_main .ui-tabs .ui-tabs-nav li{
+        min-height: 105px;
+        max-width: 33%;
+    }
+}
+.tx_main .ui-tabs .ui-tabs-nav li{
+    border-right: 1px solid #d7d7d7;
+}
+.tx_main .ui-tabs .ui-tabs-nav li:last-child{
+    border-right: none;
 }
 .tx_main .ui-tabs .ui-tabs-nav .ui-tabs-anchor{
     padding: 1em;
