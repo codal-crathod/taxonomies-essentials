@@ -176,6 +176,13 @@
 .tx_main ol li{
     margin-bottom: 14px;
 }
+.tx_main .wrap{
+    margin-right: 0;
+}
+#general-options input{
+    padding: 8px 15px;
+    margin-top: 12px;
+}
 @media screen and (min-width: 767px) {
     .tx_main .taxonomy_list li{
         flex: 50%;
